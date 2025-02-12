@@ -69,7 +69,7 @@ else:
     #     "25%": "25% (Percentile)<br>Speed: Fast – Shooter is quicker than 75% of competitors.<br>"
     #            "Accuracy: Low – Shooter is less accurate than 75% of competitors.<br>"
     #            "Overall: If this relates to speed, it’s good (faster than most). If it relates to accuracy, it’s bad (less precise)."
-    # }
+     }
 
     # Add static horizontal lines (Thicker) with individual hover text buttons
     for y, label_key in zip(percentiles, labels.keys()):
