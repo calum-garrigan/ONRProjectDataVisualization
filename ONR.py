@@ -109,7 +109,7 @@ else:
         ),
         hovermode="closest",  # Ensures hover works properly
         height=700,  # Bigger graph height
-        width=1000,  # Bigger graph width
+        width=500,  # Bigger graph width
         showlegend=True  # ✅ Keeps only test labels in the legend
     )
 
