@@ -8,14 +8,14 @@ import numpy as np
 import random
 
 # 🎯 Generate a large dataset with variety
-schools = ["IMC", "BIM", "NMC", "KLM"]
+schools = ["IMC", "BIM"]
 year_classes = [f"24-{i}" for i in range(1, 13)]
-test_levels = ["TT2H100", "TT2H200", "TT2H300", "TT2H400", "TT2H500"]
+test_levels = ["TT2H100", "TT2H200", "TT2H300"]
 
 large_data = {
     "School": [random.choice(schools) for _ in range(200)],
     "Year_Class": [random.choice(year_classes) for _ in range(200)],
-    "Test Level": [random.choice(test_levels) for _ in range(500)],
+    "Test Level": [random.choice(test_levels) for _ in range(200)],
     "TTP": [round(random.uniform(5, 12), 2) for _ in range(200)],
     "TTT": [round(random.uniform(8, 15), 2) for _ in range(200)],
     "S/A": [round(random.uniform(4, 9), 2) for _ in range(200)]
@@ -24,7 +24,7 @@ large_data = {
 df_large = pd.DataFrame(large_data)
 
 # 🎨 Streamlit Dashboard Layout
-st.title("📊 Interactive Stacked Bar Chart")
+st.title("📊 Proof of Concept for ONR")
 
 # 🔹 Sidebar Filters
 selected_school = st.sidebar.selectbox("Select School", ["All"] + sorted(df_large["School"].unique()))
@@ -61,7 +61,7 @@ else:
 
     # 📌 Add horizontal dotted lines (Thicker) with hover buttons only
     y_max = max(ttp + ttt + sa)
-    percentiles = [y_max * 0.75, y_max * 0.50, y_max * 0.25]
+    percentiles = [y_max * 0.25, y_max * 0.50, y_max * 0.75]
 
     labels = {
         "75%": "75% (Percentile)<br>Speed: Slow – Shooter takes longer than 75% of competitors.<br>"
