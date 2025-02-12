@@ -50,17 +50,16 @@ else:
     fig = go.Figure()
 
     # **Apply different stacking order**
-    for i, level in enumerate(test_levels):
-        if i == 0:
-            # **First stacked bar → TTP (bottom), TTT, S/A (top)**
-            fig.add_trace(go.Bar(x=[level], y=[ttp[level]], name='TTP (Time to Process)', marker_color='blue'))
-            fig.add_trace(go.Bar(x=[level], y=[ttt[level]], name='TTT (Total Task Time)', marker_color='green'))
-            fig.add_trace(go.Bar(x=[level], y=[sa[level]], name='S/A (Split Accuracy)', marker_color='gray'))
-        else:
-            # **Second & Third stacked bars → TTT (bottom), S/A (top) (NO TTP)**
-            fig.add_trace(go.Bar(x=[level], y=[ttt[level]], name='TTT (Total Task Time)', marker_color='green'))
-            fig.add_trace(go.Bar(x=[level], y=[sa[level]], name='S/A (Split Accuracy)', marker_color='gray'))
-
+for i, level in enumerate(test_levels):
+    if i == 0:
+        # **First stacked bar → TTP (bottom), S/A (top) (NO TTT)**
+        fig.add_trace(go.Bar(x=[level], y=[ttp[level]], name='TTP (Time to Process)', marker_color='blue'))
+        fig.add_trace(go.Bar(x=[level], y=[sa[level]], name='S/A (Split Accuracy)', marker_color='gray'))
+    else:
+        # **Second & Third stacked bars → TTT (bottom), S/A (top) (NO TTP)**
+        fig.add_trace(go.Bar(x=[level], y=[ttt[level]], name='TTT (Total Task Time)', marker_color='green'))
+        fig.add_trace(go.Bar(x=[level], y=[sa[level]], name='S/A (Split Accuracy)', marker_color='gray'))
+        
     # 📌 Add horizontal dotted lines (Thicker) with hover buttons only
     y_max = max(ttp + ttt + sa)
     percentiles = [y_max * 0.75, y_max * 0.50, y_max * 0.25]
