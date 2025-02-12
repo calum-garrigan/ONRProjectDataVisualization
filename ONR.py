@@ -106,7 +106,7 @@ else:
     # Layout settings (Bigger Graph)
     fig.update_layout(
         barmode='stack',
-        title=f"📊 Stacked Metrics for KDT by Test Level (School: {selected_school}, Class: {selected_class})",
+        title=f"Stacked Metrics for KDT by Test Level (School: {selected_school}, Class: {selected_class})",
         xaxis_title="Test Level",
         yaxis_title="Time (s)",
         xaxis=dict(tickangle=-45),
