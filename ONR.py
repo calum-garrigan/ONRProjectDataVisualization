@@ -56,20 +56,20 @@ else:
     y_max = max(ttp + ttt + sa)
     percentiles = [y_max * 0.75, y_max * 0.50, y_max * 0.25]
 
-    # Define separate hover text for each percentile
-    labels = {
-        "75%": "75% (Percentile)<br>Speed: Slow – Shooter takes longer than 75% of competitors.<br>"
-               "Accuracy: High – Shooter is more accurate than 75% of competitors.<br>"
-               "Overall: If this relates to speed, it's bad (too slow). If it relates to accuracy, it's good (high precision).",
+    # # Define separate hover text for each percentile
+    # labels = {
+    #     "75%": "75% (Percentile)<br>Speed: Slow – Shooter takes longer than 75% of competitors.<br>"
+    #            "Accuracy: High – Shooter is more accurate than 75% of competitors.<br>"
+    #            "Overall: If this relates to speed, it's bad (too slow). If it relates to accuracy, it's good (high precision).",
 
-        "50%": "50% (Percentile)<br>Speed: Average – Shooter performs at the median level.<br>"
-               "Accuracy: Moderate – About as accurate as the middle of the group.<br>"
-               "Overall: Neutral—not outstanding but not poor.",
+    #     "50%": "50% (Percentile)<br>Speed: Average – Shooter performs at the median level.<br>"
+    #            "Accuracy: Moderate – About as accurate as the middle of the group.<br>"
+    #            "Overall: Neutral—not outstanding but not poor.",
 
-        "25%": "25% (Percentile)<br>Speed: Fast – Shooter is quicker than 75% of competitors.<br>"
-               "Accuracy: Low – Shooter is less accurate than 75% of competitors.<br>"
-               "Overall: If this relates to speed, it’s good (faster than most). If it relates to accuracy, it’s bad (less precise)."
-    }
+    #     "25%": "25% (Percentile)<br>Speed: Fast – Shooter is quicker than 75% of competitors.<br>"
+    #            "Accuracy: Low – Shooter is less accurate than 75% of competitors.<br>"
+    #            "Overall: If this relates to speed, it’s good (faster than most). If it relates to accuracy, it’s bad (less precise)."
+    # }
 
     # Add static horizontal lines (Thicker) with individual hover text buttons
     for y, label_key in zip(percentiles, labels.keys()):
