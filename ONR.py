@@ -62,7 +62,7 @@ else:
                              marker_color='gray', legendgroup="S/A", showlegend=True))
         else:
             # **All other bars → TTT (bottom), S/A (top) (NO TTP)**
-            fig.add_trace(go.Bar(x=[level], y=[ttt[level]], name='TTT (Total Task Time)', 
+            fig.add_trace(go.Bar(x=[level], y=[ttt[level]], name='TTT', 
                              marker_color='green', legendgroup="TTT", showlegend=(i == 1)))
             fig.add_trace(go.Bar(x=[level], y=[sa[level]], name='S/A (Split Accuracy)', 
                              marker_color='gray', legendgroup="S/A", showlegend=False))
@@ -106,7 +106,7 @@ else:
     # 🎨 Layout settings (Bigger Graph)
     fig.update_layout(
         barmode='stack',
-        title=f"📊 Stacked Metrics by Test Level (School: {selected_school}, Class: {selected_class})",
+        title=f"📊 Stacked Metrics for KDT by Test Level (School: {selected_school}, Class: {selected_class})",
         xaxis_title="Test Level",
         yaxis_title="Time (s)",
         xaxis=dict(tickangle=-45),
