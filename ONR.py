@@ -116,8 +116,8 @@ else:
             ticktext=["75%", "50%", "25%"]
         ),
         hovermode="closest",  # Ensures hover works properly
-        height=700,  # Bigger graph height
-        width=1000,  # Bigger graph width
+        height=600,  # Bigger graph height
+        width=800,  # Bigger graph width
         showlegend=True  # ✅ Keeps only test labels in the legend
     )
 
