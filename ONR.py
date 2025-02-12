@@ -69,7 +69,7 @@ else:
 
     # 📌 Add horizontal dotted lines (Thicker) with hover buttons only
     y_max = max(ttp + ttt + sa)
-    Time (s) = [y_max * 0.25, y_max * 0.50, y_max * 0.75]
+    percentiles = [y_max * 0.25, y_max * 0.50, y_max * 0.75]
 
     labels = {
         "75%": "75% (Percentile)<br>Speed: Slow – Shooter takes longer than 75% of competitors.<br>"
@@ -108,7 +108,7 @@ else:
         barmode='stack',
         title=f"📊 Stacked Metrics by Test Level (School: {selected_school}, Class: {selected_class})",
         xaxis_title="Test Level",
-        yaxis_title="Percentile",
+        yaxis_title="Time (s)",
         xaxis=dict(tickangle=-45),
         yaxis=dict(
             tickmode="array",
