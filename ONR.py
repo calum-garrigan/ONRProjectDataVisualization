@@ -48,11 +48,20 @@ else:
 
     # 📊 Create stacked bar chart (Larger Size)
     fig = go.Figure()
-    fig.add_trace(go.Bar(x=test_levels, y=ttp, name='TTP (Time to Process)', marker_color='blue'))
-    fig.add_trace(go.Bar(x=test_levels, y=ttt, name='TTT (Total Task Time)', marker_color='green'))
-    fig.add_trace(go.Bar(x=test_levels, y=sa, name='S/A (Split Accuracy)', marker_color='gray'))
 
-    # 📌 Add horizontal dotted lines (Thicker with Individual Hover Buttons)
+    # **Apply different stacking order**
+    for i, level in enumerate(test_levels):
+        if i == 0:
+            # **First stacked bar → TTP (bottom), TTT, S/A (top)**
+            fig.add_trace(go.Bar(x=[level], y=[ttp[level]], name='TTP (Time to Process)', marker_color='blue'))
+            fig.add_trace(go.Bar(x=[level], y=[ttt[level]], name='TTT (Total Task Time)', marker_color='green'))
+            fig.add_trace(go.Bar(x=[level], y=[sa[level]], name='S/A (Split Accuracy)', marker_color='gray'))
+        else:
+            # **Second & Third stacked bars → TTT (bottom), S/A (top) (NO TTP)**
+            fig.add_trace(go.Bar(x=[level], y=[ttt[level]], name='TTT (Total Task Time)', marker_color='green'))
+            fig.add_trace(go.Bar(x=[level], y=[sa[level]], name='S/A (Split Accuracy)', marker_color='gray'))
+
+    # 📌 Add horizontal dotted lines (Thicker) with hover buttons only
     y_max = max(ttp + ttt + sa)
     percentiles = [y_max * 0.75, y_max * 0.50, y_max * 0.25]
 
@@ -71,7 +80,7 @@ else:
                "Overall: If this relates to speed, it’s good (faster than most). If it relates to accuracy, it’s bad (less precise)."
     }
 
-    # Add static horizontal lines (Thicker) with individual hover text buttons
+    # Add static horizontal lines (Thicker) with individual hover buttons only
     for y, label_key in zip(percentiles, labels.keys()):
         # Dotted horizontal line
         fig.add_trace(go.Scatter(
@@ -81,13 +90,12 @@ else:
             showlegend=False
         ))
 
-        # Hover text button on the right side
+        # Hover button (no text on graph, only hover)
         fig.add_trace(go.Scatter(
-            x=[test_levels[-1]], y=[y], mode="markers+text",
+            x=[test_levels[-1]], y=[y], mode="markers",
             marker=dict(color="black", size=10),
-            text=[labels[label_key]],  # Shows text only when hovered
-            textposition="middle right",
             hoverinfo="text",
+            text=[labels[label_key]],  # Shows text only when hovered
             showlegend=False  # Keeps legend clean
         ))
 
@@ -103,7 +111,7 @@ else:
             tickvals=percentiles,
             ticktext=["75%", "50%", "25%"]
         ),
-        hovermode="closest",  # Ensures individual hover tooltips work properly
+        hovermode="closest",  # Ensures hover works properly
         height=700,  # Bigger graph height
         width=1000,  # Bigger graph width
         showlegend=True  # ✅ Keeps only test labels in the legend
