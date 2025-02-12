@@ -56,7 +56,7 @@ else:
     for i, level in enumerate(test_levels):
         if i == 0:
             # **First stacked bar → TTP (bottom), S/A (top) (NO TTT)**
-            fig.add_trace(go.Bar(x=[level], y=[ttp[level]], name='TTP (Time to Process)', 
+            fig.add_trace(go.Bar(x=[level], y=[ttp[level]], name='TTP', 
                              marker_color='blue', legendgroup="TTP", showlegend=True))
             fig.add_trace(go.Bar(x=[level], y=[sa[level]], name='S/A (Split Accuracy)', 
                              marker_color='gray', legendgroup="S/A", showlegend=True))
