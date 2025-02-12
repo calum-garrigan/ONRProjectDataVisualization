@@ -24,7 +24,7 @@ large_data = {
 df_large = pd.DataFrame(large_data)
 
 # Add a logo above the title
-st.image("ONR LOGO.png", width=150)  # Adjust width as needed
+st.image("ONR LOGO.png", width=500)  # Adjust width as needed
 st.title("📊 Interactive Stacked Bar Chart")
 
 # 🔹 Sidebar Filters
