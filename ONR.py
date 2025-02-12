@@ -46,16 +46,17 @@ else:
     ttt = filtered_df.groupby("Test Level")["TTT"].mean().reindex(test_levels, fill_value=0)
     sa = filtered_df.groupby("Test Level")["S/A"].mean().reindex(test_levels, fill_value=0)
 
-    # 📊 Create stacked bar chart
+    # 📊 Create stacked bar chart (Larger Size)
     fig = go.Figure()
     fig.add_trace(go.Bar(x=test_levels, y=ttp, name='TTP (Time to Process)', marker_color='blue'))
     fig.add_trace(go.Bar(x=test_levels, y=ttt, name='TTT (Total Task Time)', marker_color='green'))
     fig.add_trace(go.Bar(x=test_levels, y=sa, name='S/A (Split Accuracy)', marker_color='gray'))
 
-    # 📌 Add horizontal dotted lines with hover text
+    # 📌 Add horizontal dotted lines (Thicker with Individual Hover Buttons)
     y_max = max(ttp + ttt + sa)
     percentiles = [y_max * 0.75, y_max * 0.50, y_max * 0.25]
 
+    # Define separate hover text for each percentile
     labels = {
         "75%": "75% (Percentile)<br>Speed: Slow – Shooter takes longer than 75% of competitors.<br>"
                "Accuracy: High – Shooter is more accurate than 75% of competitors.<br>"
@@ -70,19 +71,30 @@ else:
                "Overall: If this relates to speed, it’s good (faster than most). If it relates to accuracy, it’s bad (less precise)."
     }
 
-    # Add static horizontal lines with hover text
+    # Add static horizontal lines (Thicker) with individual hover text buttons
     for y, label_key in zip(percentiles, labels.keys()):
+        # Dotted horizontal line
         fig.add_trace(go.Scatter(
             x=[test_levels[0], test_levels[-1]], y=[y, y], mode="lines",
-            line=dict(dash='dot', color="black"),
-            hoverinfo="text", text=[labels[label_key]] * len(test_levels),
-            showlegend=False  # ❌ Keeps percentile lines out of the legend
+            line=dict(dash='dot', width=2.5, color="black"),  # Thicker dotted lines
+            hoverinfo="none",
+            showlegend=False
         ))
 
-    # 🎨 Layout settings
+        # Hover text button on the right side
+        fig.add_trace(go.Scatter(
+            x=[test_levels[-1]], y=[y], mode="markers+text",
+            marker=dict(color="black", size=10),
+            text=[labels[label_key]],  # Shows text only when hovered
+            textposition="middle right",
+            hoverinfo="text",
+            showlegend=False  # Keeps legend clean
+        ))
+
+    # 🎨 Layout settings (Bigger Graph)
     fig.update_layout(
         barmode='stack',
-        title=f"Stacked Metrics by Test Level (School: {selected_school}, Class: {selected_class})",
+        title=f"📊 Stacked Metrics by Test Level (School: {selected_school}, Class: {selected_class})",
         xaxis_title="Test Level",
         yaxis_title="Percentile",
         xaxis=dict(tickangle=-45),
@@ -91,9 +103,11 @@ else:
             tickvals=percentiles,
             ticktext=["75%", "50%", "25%"]
         ),
-        hovermode="x unified",
+        hovermode="closest",  # Ensures individual hover tooltips work properly
+        height=700,  # Bigger graph height
+        width=1000,  # Bigger graph width
         showlegend=True  # ✅ Keeps only test labels in the legend
     )
 
     # 📊 Show chart in Streamlit
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
