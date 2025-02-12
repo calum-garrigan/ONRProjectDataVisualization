@@ -8,9 +8,9 @@ import numpy as np
 import random
 
 # 🎯 Generate a large dataset with variety
-schools = ["IMC", "BIM"]
+schools = ["IMC", "BIM", "NMC", "KLM"]
 year_classes = [f"24-{i}" for i in range(1, 13)]
-test_levels = ["TT2H100", "TT2H200", "TT2H300"]
+test_levels = ["TT2H100", "TT2H200", "TT2H300", "TT2H400", "TT2H500"]
 
 large_data = {
     "School": [random.choice(schools) for _ in range(200)],
@@ -46,25 +46,23 @@ else:
     ttt = filtered_df.groupby("Test Level")["TTT"].mean().reindex(test_levels, fill_value=0)
     sa = filtered_df.groupby("Test Level")["S/A"].mean().reindex(test_levels, fill_value=0)
 
-    # 📊 Create stacked bar chart (Larger Size)
+    # 📊 Create one interactive stacked bar chart
     fig = go.Figure()
 
-    # **Apply different stacking order**
-for i, level in enumerate(test_levels):
-    if i == 0:
-        # **First stacked bar → TTP (bottom), S/A (top) (NO TTT)**
-        fig.add_trace(go.Bar(x=[level], y=[ttp[level]], name='TTP (Time to Process)', marker_color='blue'))
-        fig.add_trace(go.Bar(x=[level], y=[sa[level]], name='S/A (Split Accuracy)', marker_color='gray'))
-    else:
-        # **Second & Third stacked bars → TTT (bottom), S/A (top) (NO TTP)**
-        fig.add_trace(go.Bar(x=[level], y=[ttt[level]], name='TTT (Total Task Time)', marker_color='green'))
-        fig.add_trace(go.Bar(x=[level], y=[sa[level]], name='S/A (Split Accuracy)', marker_color='gray'))
-        
+    for i, level in enumerate(test_levels):
+        if i == 0:
+            # **First stacked bar → TTP (bottom), S/A (top) (NO TTT)**
+            fig.add_trace(go.Bar(x=[level], y=[ttp[level]], name='TTP (Time to Process)', marker_color='blue'))
+            fig.add_trace(go.Bar(x=[level], y=[sa[level]], name='S/A (Split Accuracy)', marker_color='gray'))
+        else:
+            # **All other bars → TTT (bottom), S/A (top) (NO TTP)**
+            fig.add_trace(go.Bar(x=[level], y=[ttt[level]], name='TTT (Total Task Time)', marker_color='green'))
+            fig.add_trace(go.Bar(x=[level], y=[sa[level]], name='S/A (Split Accuracy)', marker_color='gray'))
+
     # 📌 Add horizontal dotted lines (Thicker) with hover buttons only
     y_max = max(ttp + ttt + sa)
     percentiles = [y_max * 0.75, y_max * 0.50, y_max * 0.25]
 
-    # Define separate hover text for each percentile
     labels = {
         "75%": "75% (Percentile)<br>Speed: Slow – Shooter takes longer than 75% of competitors.<br>"
                "Accuracy: High – Shooter is more accurate than 75% of competitors.<br>"
@@ -79,7 +77,6 @@ for i, level in enumerate(test_levels):
                "Overall: If this relates to speed, it’s good (faster than most). If it relates to accuracy, it’s bad (less precise)."
     }
 
-    # Add static horizontal lines (Thicker) with individual hover buttons only
     for y, label_key in zip(percentiles, labels.keys()):
         # Dotted horizontal line
         fig.add_trace(go.Scatter(
