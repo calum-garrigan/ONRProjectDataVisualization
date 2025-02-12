@@ -25,7 +25,6 @@ df_large = pd.DataFrame(large_data)
 
 # Add a logo above the title
 st.image("ONR LOGO.png", width=200)  # Adjust width as needed
-st.title("Proof of Concept")
 
 # 🔹 Sidebar Filters
 selected_school = st.sidebar.selectbox("Select School", ["All"] + sorted(df_large["School"].unique()))
