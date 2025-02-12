@@ -8,9 +8,9 @@ import numpy as np
 import random
 
 # 🎯 Generate a large dataset with variety
-schools = ["IMC", "BIM", "NMC", "KLM"]
+schools = ["IMC", "BIM"]
 year_classes = [f"24-{i}" for i in range(1, 13)]
-test_levels = ["TT2H100", "TT2H200", "TT2H300", "TT2H400", "TT2H500"]
+test_levels = ["TT2H100", "TT2H200", "TT2H300"]
 
 large_data = {
     "School": [random.choice(schools) for _ in range(200)],
@@ -25,7 +25,7 @@ df_large = pd.DataFrame(large_data)
 
 # Add a logo above the title
 st.image("ONR LOGO.png", width=200)  # Adjust width as needed
-st.title("📊 Interactive Stacked Bar Chart")
+st.title("Proof of Concept")
 
 # 🔹 Sidebar Filters
 selected_school = st.sidebar.selectbox("Select School", ["All"] + sorted(df_large["School"].unique()))
