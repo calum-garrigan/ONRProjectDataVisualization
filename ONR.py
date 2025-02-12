@@ -69,7 +69,7 @@ else:
 
     # 📌 Add horizontal dotted lines (Thicker) with hover buttons only
     y_max = max(ttp + ttt + sa)
-    percentiles = [y_max * 0.75, y_max * 0.50, y_max * 0.25]
+    percentiles = [y_max * 0.25, y_max * 0.50, y_max * 0.75]
 
     labels = {
         "75%": "75% (Percentile)<br>Speed: Slow – Shooter takes longer than 75% of competitors.<br>"
