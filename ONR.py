@@ -27,9 +27,6 @@ df_large = pd.DataFrame(large_data)
 st.image("ONR LOGO.png", width=150)  # Adjust width as needed
 st.title("📊 Interactive Stacked Bar Chart")
 
-# 🎨 Streamlit Dashboard Layout
-st.title("📊 Interactive Stacked Bar Chart")
-
 # 🔹 Sidebar Filters
 selected_school = st.sidebar.selectbox("Select School", ["All"] + sorted(df_large["School"].unique()))
 selected_class = st.sidebar.selectbox("Select Year Class", ["All"] + sorted(df_large["Year_Class"].unique()))
