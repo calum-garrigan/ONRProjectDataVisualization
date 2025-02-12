@@ -1,4 +1,4 @@
-# ✅ Install required packages before running:
+# Install required packages before running:
 # pip install streamlit plotly pandas numpy
 
 import streamlit as st
@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 import random
 
-# 🎯 Generate a large dataset with variety
+# Generate a large dataset with variety
 schools = ["IMC", "BIM"]
 year_classes = [f"24-{i}" for i in range(1, 13)]
 test_levels = ["TT2H100", "TT2H200", "TT2H300"]
@@ -30,14 +30,14 @@ st.image("ONR LOGO.png", width=200)  # Adjust width as needed
 selected_school = st.sidebar.selectbox("Select School", ["All"] + sorted(df_large["School"].unique()))
 selected_class = st.sidebar.selectbox("Select Year Class", ["All"] + sorted(df_large["Year_Class"].unique()))
 
-# 📌 Apply filters
+# Apply filters
 filtered_df = df_large.copy()
 if selected_school != "All":
     filtered_df = filtered_df[filtered_df["School"] == selected_school]
 if selected_class != "All":
     filtered_df = filtered_df[filtered_df["Year_Class"] == selected_class]
 
-# 📌 Check if data is available
+# Check if data is available
 if filtered_df.empty:
     st.warning("⚠️ No data available for the selected filters.")
 else:
@@ -46,7 +46,7 @@ else:
     ttt = filtered_df.groupby("Test Level")["TTT"].mean().reindex(test_levels, fill_value=0)
     sa = filtered_df.groupby("Test Level")["S/A"].mean().reindex(test_levels, fill_value=0)
 
-    # 📊 Create one interactive stacked bar chart
+    # Create one interactive stacked bar chart
     fig = go.Figure()
 
     # Adjust bar heights so some bars reach the top dotted line
@@ -67,7 +67,7 @@ else:
             fig.add_trace(go.Bar(x=[level], y=[sa[level]], name='S/A (Split Accuracy)', 
                              marker_color='gray', legendgroup="S/A", showlegend=False))
 
-    # 📌 Add horizontal dotted lines (Thicker) with hover buttons only
+    # Add horizontal dotted lines (Thicker) with hover buttons only
     y_max = max(ttp + ttt + sa)
     percentiles = [y_max * 0.25, y_max * 0.50, y_max * 0.75]
 
@@ -103,7 +103,7 @@ else:
             showlegend=False  # Keeps legend clean
         ))
 
-    # 🎨 Layout settings (Bigger Graph)
+    # Layout settings (Bigger Graph)
     fig.update_layout(
         barmode='stack',
         title=f"📊 Stacked Metrics for KDT by Test Level (School: {selected_school}, Class: {selected_class})",
@@ -118,8 +118,8 @@ else:
         hovermode="closest",  # Ensures hover works properly
         height=600,  # Bigger graph height
         width=800,  # Bigger graph width
-        showlegend=True  # ✅ Keeps only test labels in the legend
+        showlegend=True  # Keeps only test labels in the legend
     )
 
-    # 📊 Show chart in Streamlit
+    # Show chart in Streamlit
     st.plotly_chart(fig, use_container_width=True)
