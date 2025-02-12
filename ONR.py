@@ -50,18 +50,22 @@ else:
     fig = go.Figure()
 
     # Adjust bar heights so some bars reach the top dotted line
-    scale_factor = max(ttp + ttt + sa) / max(sa)  # Scale to ensure some bars reach the top
-    sa = sa * scale_factor * 0.9  # Adjusting split accuracy so some bars go up
+    scale_factor = max(ttp + ttt + sa) / max(sa)  
+    sa = sa * scale_factor * 0.9  
 
     for i, level in enumerate(test_levels):
         if i == 0:
             # **First stacked bar → TTP (bottom), S/A (top) (NO TTT)**
-            fig.add_trace(go.Bar(x=[level], y=[ttp[level]], name='TTP (Time to Process)', marker_color='blue', legendgroup="TTP"))
-            fig.add_trace(go.Bar(x=[level], y=[sa[level]], name='S/A (Split Accuracy)', marker_color='gray', legendgroup="S/A"))
+            fig.add_trace(go.Bar(x=[level], y=[ttp[level]], name='TTP (Time to Process)', 
+                             marker_color='blue', legendgroup="TTP", showlegend=True))
+            fig.add_trace(go.Bar(x=[level], y=[sa[level]], name='S/A (Split Accuracy)', 
+                             marker_color='gray', legendgroup="S/A", showlegend=True))
         else:
             # **All other bars → TTT (bottom), S/A (top) (NO TTP)**
-            fig.add_trace(go.Bar(x=[level], y=[ttt[level]], name='TTT (Total Task Time)', marker_color='green', legendgroup="TTT"))
-            fig.add_trace(go.Bar(x=[level], y=[sa[level]], name='S/A (Split Accuracy)', marker_color='gray', legendgroup="S/A", showlegend=False))
+            fig.add_trace(go.Bar(x=[level], y=[ttt[level]], name='TTT (Total Task Time)', 
+                             marker_color='green', legendgroup="TTT", showlegend=(i == 1)))
+            fig.add_trace(go.Bar(x=[level], y=[sa[level]], name='S/A (Split Accuracy)', 
+                             marker_color='gray', legendgroup="S/A", showlegend=False))
 
     # 📌 Add horizontal dotted lines (Thicker) with hover buttons only
     y_max = max(ttp + ttt + sa)
