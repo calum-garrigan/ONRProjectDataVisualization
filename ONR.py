@@ -15,7 +15,7 @@ test_levels = ["TT2H100", "TT2H200", "TT2H300", "TT2H400", "TT2H500"]
 large_data = {
     "School": [random.choice(schools) for _ in range(200)],
     "Year_Class": [random.choice(year_classes) for _ in range(200)],
-    "Test Level": [random.choice(test_levels) for _ in range(200)],
+    "Test Level": [random.choice(test_levels) for _ in range(500)],
     "TTP": [round(random.uniform(5, 12), 2) for _ in range(200)],
     "TTT": [round(random.uniform(8, 15), 2) for _ in range(200)],
     "S/A": [round(random.uniform(4, 9), 2) for _ in range(200)]
